@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
+    width: 350,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -14,6 +15,7 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   form: {
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   buttonsContainer: {

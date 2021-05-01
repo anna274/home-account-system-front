@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAccounts, showModal } from 'redux/actions';
+import { deleteAccount, getAccounts, showModal } from 'redux/actions';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -11,8 +12,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 
-import { ACCOUNT_MODAL } from 'consts';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import { ACCOUNT_MODAL, CONFIRMATION_MODAL } from 'consts';
+import { modalTypes } from '../../redux/types';
 
 const columns = [
   { id: 'login', label: 'Логин', minWidth: 150 },
@@ -61,6 +67,25 @@ const AccountsPage = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const editHandler = (account) => {
+    dispatch(showModal({
+      modalType: ACCOUNT_MODAL,
+      isEdit: true,
+      account,
+    }))
+  }
+
+  const deleteHandler = (accountId) => {
+    dispatch(showModal({
+      modalType: CONFIRMATION_MODAL,
+      isEdit: true,
+      onConfirm: () => dispatch(deleteAccount(accountId)),
+      text: 'Вы уверенны, что хотите удалить аккаунт?',
+      confirmText: 'Да, удалить аккаунт'
+    }))
+  }
+
   return (
     <div className={classes.page}>
     <Paper className={classes.root}>
@@ -68,6 +93,14 @@ const AccountsPage = () => {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
+              {
+                <TableCell
+                  key="actions"
+                  style={{ minWidth: 70 }}
+                >
+                  {"Действия"}
+                </TableCell>
+              }
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
@@ -83,6 +116,16 @@ const AccountsPage = () => {
             {accounts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  {
+                    <TableCell key="actions">
+                      <IconButton component="span" onClick={() => editHandler(row)} color="primary">
+                        <EditIcon/>
+                      </IconButton>
+                      <IconButton component="span" color="secondary" onClick={() => deleteHandler(row.id)}>
+                        <DeleteIcon/>
+                      </IconButton>
+                    </TableCell>
+                  }
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (

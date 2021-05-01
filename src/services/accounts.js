@@ -8,8 +8,8 @@ const createAccountInfo = (formData) => {
   return axios.post('/accounts', formData);
 }
 
-const editAccountInfo = (accountId, formData) => {
-  return axios.put(`/accounts/${accountId}`, formData);
+const editAccountInfo = (formData) => {
+  return axios.put(`/accounts`, formData);
 }
 
 const deleteAccountInfo = (accountId) => {

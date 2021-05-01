@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
-import { createAccount } from 'redux/actions'
+import { createAccount, editAccount } from 'redux/actions';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -34,7 +34,11 @@ export default function AccountModal({ isOpen, onClose, isEdit, account }) {
     validationSchema: isEdit ? editSchema : createSchema,
     onSubmit: async (values) => {
       const { confirmedPassword, ...dataToSend } = values;
-      dispatch(createAccount({ ...dataToSend, roles: [values.roles] }));
+      if(isEdit) {
+        dispatch(editAccount({ ...dataToSend, roles: [values.roles] }));
+      } else {
+        dispatch(createAccount({ ...dataToSend, roles: [values.roles] }));
+      }
     },
   });
 
@@ -56,7 +60,7 @@ export default function AccountModal({ isOpen, onClose, isEdit, account }) {
               Данные об аккаунте
             </Typography>
             <form className={classes.form} onSubmit={formik.handleSubmit}>
-              <FormInput name="login" formik={formik} label="Логин"/>
+              <FormInput name="login" formik={formik} label="Логин" disabled={isEdit}/>
               {
                 !isEdit &&
                   <>
@@ -72,7 +76,7 @@ export default function AccountModal({ isOpen, onClose, isEdit, account }) {
                   color="primary"
                   style={{ marginRight: '1rem' }}
                   disabled={actionRunning}
-                >Создать аккаунт</Button>
+                >{isEdit ? 'Сохранить изменения' : 'Создать аккаунт'}</Button>
                 <Button
                   variant="contained"
                   color="secondary"
