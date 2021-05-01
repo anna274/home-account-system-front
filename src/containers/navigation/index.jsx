@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { NAV_LINKS, PROFILE_NAV_LINKS } from 'consts';
+import { NAV_LINKS_ADMIN, PROFILE_NAV_LINKS_ADMIN } from 'consts';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from "@material-ui/icons/Menu";
 import useStyles from './styles';
@@ -43,7 +43,7 @@ const Navigation = () => {
       onClose={handleMenuClose}
     >
       {
-        PROFILE_NAV_LINKS.map(({ id, text, to }) => {
+        PROFILE_NAV_LINKS_ADMIN.map(({ id, text, to }) => {
           return (
             <Link
               {...{
@@ -122,7 +122,7 @@ const Navigation = () => {
   };
 
   const getDrawerChoices = () => {
-    return NAV_LINKS.map(({ id, text, to }) => {
+    return NAV_LINKS_ADMIN.map(({ id, text, to }) => {
       return (
         <Link
           {...{
@@ -159,7 +159,7 @@ const Navigation = () => {
   );
 
   const getMenuButtons = () => {
-    return NAV_LINKS.map(({ id, text, to }) => {
+    return NAV_LINKS_ADMIN.map(({ id, text, to }) => {
       return (
         <Button
           {...{

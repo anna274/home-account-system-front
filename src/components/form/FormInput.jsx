@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default ({formik, name, autoComplete = '', label, type="text"}) => {
+export default ({formik, name, autoComplete = '', label, type="text", disabled}) => {
   const error = formik.errors[name];
   const touched = formik.touched[name];
   return (
@@ -19,5 +19,6 @@ export default ({formik, name, autoComplete = '', label, type="text"}) => {
     error={Boolean(touched && error)}
     helperText={touched && error}
     type={type}
+    disabled={disabled}
   />)
 }

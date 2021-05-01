@@ -1,5 +1,6 @@
 import React from 'react';
 import Routes from 'routes';
+import Modal from 'components/modals'
 
 class App extends React.Component {
   // componentDidMount() {
@@ -21,7 +22,10 @@ class App extends React.Component {
     //     <Modal />
     //   </>
     // );
-    return <Routes/>
+    return <>
+      <Routes />
+      <Modal />
+    </>
   }
 }
 

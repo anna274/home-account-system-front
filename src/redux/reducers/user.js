@@ -9,7 +9,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case userTypes.LOGIN_USER_REQUEST:        
+    case userTypes.LOGIN_USER_REQUEST:
     case userTypes.REGISTER_USER_REQUEST:
       return { ...state, loading: true };
     case userTypes.LOGIN_USER_SUCCESS:

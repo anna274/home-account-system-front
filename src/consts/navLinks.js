@@ -48,7 +48,7 @@ const PROFILE_NAV_LINKS = [
 const NAV_LINKS_ADMIN = [
   {
     id: 0,
-    to: '/users/',
+    to: '/accounts/',
     text: 'Пользователи',
   },
   {

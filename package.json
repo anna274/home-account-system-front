@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/data-grid": "^4.0.0-alpha.27",
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.20.0",
     "classnames": "^2.2.6",
@@ -53,6 +54,7 @@
     "@types/react-redux": "^7.1.11",
     "@types/react-router-dom": "^5.1.7",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
@@ -86,5 +88,6 @@
       "^.+\\.jsx?$": "babel-jest"
     }
   },
-  "proxy": "http://192.168.100.23:8080/home-account-system"
+  "proxy": "http://localhost:8080/home-account-system",
+  "type": "module"
 }

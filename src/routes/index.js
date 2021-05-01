@@ -6,7 +6,8 @@ import { PATHS } from 'consts';
 import {
   Login,
   Register,
-  Navigation
+  Navigation,
+  AccountsPage
 } from 'containers';
 
 function Routes() {
@@ -15,6 +16,8 @@ function Routes() {
       <Route path="/" component={Navigation} />
       <Route path={PATHS.login} exact component={Login} />
       <Route path={PATHS.register} exact component={Register} />
+      <Route path={PATHS.register} exact component={Register} />
+      <Route path={PATHS.accounts} exact component={AccountsPage} />
       <Switch>
       </Switch>
     </Router>
