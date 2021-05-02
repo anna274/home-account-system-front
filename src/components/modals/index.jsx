@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from 'redux/actions';
 import AccountModal from './accountModal';
 import ConfirmationModal from './confirmationModal';
-import { ACCOUNT_MODAL, CONFIRMATION_MODAL } from 'consts/modalTypes';
+import CategoryModal from './categoryModal';
+import { ACCOUNT_MODAL, CONFIRMATION_MODAL, CATEGORY_MODAL } from 'consts/modalTypes';
 
 const Modal = () => {
   const { modalType, modalProps } = useSelector((state) => state.modal);
@@ -25,6 +26,8 @@ const Modal = () => {
       return <AccountModal {...modalProps} onClose={onClose} isOpen />;
     case CONFIRMATION_MODAL:
       return <ConfirmationModal {...modalProps} onClose={onClose} isOpen />;
+    case CATEGORY_MODAL:
+      return <CategoryModal {...modalProps} onClose={onClose} isOpen />;
     default: {
       throw new Error('Modal type is not specified!');
     }

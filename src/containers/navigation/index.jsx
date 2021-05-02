@@ -10,14 +10,14 @@ import {
   Menu
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { NavLink as RouterLink } from "react-router-dom";
 import { NAV_LINKS_ADMIN, PROFILE_NAV_LINKS_ADMIN } from 'consts';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from "@material-ui/icons/Menu";
 import useStyles from './styles';
 
 const Navigation = () => {
-  const { header, logo, menuButton, toolbar, drawerContainer } = useStyles();
+  const { header, logo, menuButton, toolbar, drawerContainer, active } = useStyles();
 
   const [state, setState] = useState({
     mobileView: false,
@@ -131,6 +131,7 @@ const Navigation = () => {
             color: "inherit",
             style: { textDecoration: "none" },
             key: id,
+            activeStyle: active
           }}
         >
           <MenuItem>{text}</MenuItem>

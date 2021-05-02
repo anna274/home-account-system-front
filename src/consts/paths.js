@@ -3,6 +3,7 @@ const PATHS = {
   login: '/login',
   register: '/register',
   accounts: '/accounts',
+  categories: '/categories',
 };
 
 export default PATHS;

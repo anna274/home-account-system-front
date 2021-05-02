@@ -1,0 +1,2 @@
+export const INCOME_CATEGORY = 'INCOME'
+export const EXPENSE_CATEGORY = 'EXPENSE'

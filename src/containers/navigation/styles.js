@@ -35,4 +35,8 @@ export default makeStyles((theme) => ({
   drawerContainer: {
     padding: "20px 30px",
   },
+  active: {
+    fontWeight: "bold",
+    color: "red"
+  }
 }));
