@@ -10,10 +10,9 @@ import useStyles from '../styles';
 const columns = [
   { id: 'name', label: 'Имя', minWidth: 150 },
   {
-    id: 'accountMember',
+    id: 'accountMember.id',
     label: 'Владелец',
     minWidth: 170,
-    format: (value) => value.name,
   },
 ];
 

@@ -3,7 +3,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export default ({formik, name, label, defaultValue, values = [], classes={}}) => {
+export default ({formik, name, label, defaultValue, values = [], classes={}, renderValue}) => {
   const error = formik.errors[name];
   const touched = formik.touched[name];
   return (
@@ -18,6 +18,7 @@ export default ({formik, name, label, defaultValue, values = [], classes={}}) =>
         labelId={name}
         id={name}
         value={formik.values[name] || defaultValue}
+        renderValue={(selected) => renderValue ? renderValue(selected) : selected }
         onChange={(e) => formik.setFieldValue(name, e.target.value)}
         displayEmpty
         className={classes}

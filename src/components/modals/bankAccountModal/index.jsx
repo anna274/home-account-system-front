@@ -39,6 +39,8 @@ export default function BankAccountModal({ isOpen, onClose, isEdit, bankAccount 
     },
   });
 
+  const renderValue = (selected) => selected?.name || '';
+
   return (
     <div>
       <Modal
@@ -58,7 +60,13 @@ export default function BankAccountModal({ isOpen, onClose, isEdit, bankAccount 
             </Typography>
             <form className={classes.form} onSubmit={formik.handleSubmit}>
               <FormInput name="name" formik={formik} label="Навание счёта"/>
-              <FormSelect classes={classes.select} name="accountMember" formik={formik} label="Владелец счёта" values={accountMembers}/>
+              <FormSelect
+                classes={classes.select}
+                name="accountMember"
+                formik={formik} label="Владелец счёта"
+                values={accountMembers}
+                renderValue={renderValue}
+              />
               <div className={classes.buttonsContainer}>
                 <Button
                   type="submit"
