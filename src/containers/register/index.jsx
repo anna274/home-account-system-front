@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
+import { registerUser } from 'redux/actions'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,11 +12,11 @@ import Container from '@material-ui/core/Container';
 import { useFormik } from 'formik';
 import useStyles from './styles'
 import validationSchema from './shema';
-import { registerUserInfo } from 'services'
 import FormInput from 'components/form/FormInput'
 
 const Register =() => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -27,8 +29,7 @@ const Register =() => {
       const bodyFormData = new FormData();
       bodyFormData.append('username', values.login);
       bodyFormData.append('password', values.password);
-      // await registerUserInfo(bodyFormData);
-      console.log(values)
+      dispatch(registerUser(bodyFormData));
     },
   });
 

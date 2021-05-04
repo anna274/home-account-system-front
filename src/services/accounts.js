@@ -12,8 +12,12 @@ const editAccountInfo = (formData) => {
   return axios.put(`/accounts`, formData);
 }
 
+const editAccountPasswordInfo = (formData) => {
+  return axios.put(`/accounts/password`, formData);
+}
+
 const deleteAccountInfo = (accountId) => {
   return axios.delete(`/accounts/${accountId}`);
 }
 
-export { getAccountsInfo, createAccountInfo, editAccountInfo, deleteAccountInfo }
+export { getAccountsInfo, createAccountInfo, editAccountInfo, deleteAccountInfo, editAccountPasswordInfo }

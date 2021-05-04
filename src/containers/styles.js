@@ -12,6 +12,21 @@ export default makeStyles((theme) => ({
   linksContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '5rem'
+    marginTop: '5rem',
+    '& > *': {
+      marginRight: 20,
+      '&:last-child': {
+        marginRight: 0,
+      }
+    }
   },
+  settingsItem: {
+    padding: '2rem 4rem',
+    backgroundColor: theme.palette.primary.dark,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
+    transition: 0.3,
+    color: 'white'
+  }
 }));

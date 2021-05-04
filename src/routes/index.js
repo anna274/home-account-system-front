@@ -9,18 +9,21 @@ import {
   Navigation,
   AccountsPage,
   CategoriesPage,
+  SettingsPage,
+  AccountMembersPage
 } from 'containers';
 
 function Routes() {
   return (
     <Router history={customHistory}>
-      <Route path="/" component={Navigation} />
+      <Route path={PATHS.register} exact component={Register} />
       <Route path={PATHS.login} exact component={Login} />
-      <Route path={PATHS.register} exact component={Register} />
-      <Route path={PATHS.register} exact component={Register} />
-      <Route path={PATHS.accounts} exact component={AccountsPage} />
-      <Route path={PATHS.categories} exact component={CategoriesPage} />
+      <Route path="/" component={Navigation} />
       <Switch>
+        <PrivateRoute path={PATHS.accounts} exact component={AccountsPage} />
+        <PrivateRoute path={PATHS.categories} exact component={CategoriesPage} />
+        <PrivateRoute path={PATHS.settings} exact component={SettingsPage} />
+        <PrivateRoute path={PATHS.members} exact component={AccountMembersPage} />
       </Switch>
     </Router>
   );

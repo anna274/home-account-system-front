@@ -1,15 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Routes from 'routes';
 import Modal from 'components/modals'
+import { successfulLoginUser } from 'redux/actions'
+import { getCookie } from 'helpers'
 
 class App extends React.Component {
-  // componentDidMount() {
-  //   addAxiosResponseInterceptor();
-  //   // if we have saved tokens in local storage
-  //   if (localStorage.getItem('jwtToken')) {
-  //     this.props.authenticateUser();
-  //   }
-  // }
+  componentDidMount() {
+    // if (getCookie('io')) {
+    //   this.props.authenticateUser();
+    // }
+  }
 
   render() {
     // const { isAuthenticated, authenticating } = this.props;
@@ -29,15 +30,13 @@ class App extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   authenticating: state.authorizedUser.authenticating,
-//   isAuthenticated: state.authorizedUser.isAuthenticated,
-// });
+const mapStateToProps = (state) => ({
+  authenticating: state.user.authenticating,
+  isAuthenticated: state.user.isAuthenticated,
+});
 
-// const mapDispatchToProps = {
-//   authenticateUser,
-// };
+const mapDispatchToProps = {
+  successfulLoginUser,
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

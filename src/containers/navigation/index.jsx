@@ -10,15 +10,19 @@ import {
   Menu
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { NavLink as RouterLink } from "react-router-dom";
-import { NAV_LINKS_ADMIN, PROFILE_NAV_LINKS_ADMIN } from 'consts';
+import { NavLink as RouterLink, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { isAdmin } from 'helpers'
+import { NAV_LINKS_ADMIN, NAV_LINKS, PROFILE_NAV_LINKS_ADMIN, PROFILE_NAV_LINKS } from 'consts';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from "@material-ui/icons/Menu";
 import useStyles from './styles';
 
+const PUBLIC_ROUTES = ['/login', '/register'];
+
 const Navigation = () => {
   const { header, logo, menuButton, toolbar, drawerContainer, active } = useStyles();
-
+  const { isAuthenticated, data: { roles } } = useSelector(state => state.user)
   const [state, setState] = useState({
     mobileView: false,
     drawerOpen: false,
@@ -26,6 +30,10 @@ const Navigation = () => {
   const { mobileView, drawerOpen } = state;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const { pathname } = useLocation();
+  const navLinks = isAdmin(roles) ? NAV_LINKS_ADMIN : NAV_LINKS;
+  const profileNavLinks = isAdmin(roles) ? PROFILE_NAV_LINKS_ADMIN : PROFILE_NAV_LINKS;
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,7 +51,7 @@ const Navigation = () => {
       onClose={handleMenuClose}
     >
       {
-        PROFILE_NAV_LINKS_ADMIN.map(({ id, text, to }) => {
+        profileNavLinks.map(({ id, text, to }) => {
           return (
             <Link
               {...{
@@ -122,7 +130,7 @@ const Navigation = () => {
   };
 
   const getDrawerChoices = () => {
-    return NAV_LINKS_ADMIN.map(({ id, text, to }) => {
+    return navLinks.map(({ id, text, to }) => {
       return (
         <Link
           {...{
@@ -160,7 +168,7 @@ const Navigation = () => {
   );
 
   const getMenuButtons = () => {
-    return NAV_LINKS_ADMIN.map(({ id, text, to }) => {
+    return navLinks.map(({ id, text, to }) => {
       return (
         <Button
           {...{
@@ -176,6 +184,13 @@ const Navigation = () => {
       );
     });
   };
+
+  if(!isAuthenticated) {
+    if(PUBLIC_ROUTES.includes(pathname)) {
+      return null;
+    }
+    return null;
+  }
 
   return (
     <header>

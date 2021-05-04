@@ -4,6 +4,8 @@ const PATHS = {
   register: '/register',
   accounts: '/accounts',
   categories: '/categories',
+  settings: '/settings',
+  members: '/members'
 };
 
 export default PATHS;
