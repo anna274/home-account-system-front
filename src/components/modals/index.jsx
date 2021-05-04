@@ -8,6 +8,7 @@ import LoginSettingModal from './loginSettingModal';
 import AccountMembersModal from './accountMembersModal';
 import BankAccountModal from './bankAccountModal';
 import IncomesModal from './incomesModal';
+import ExpensesModal from './expensesModal';
 import {
   ACCOUNT_MODAL,
   CONFIRMATION_MODAL,
@@ -15,7 +16,8 @@ import {
   LOGIN_SETTINGS_MODAL,
   ACCOUNT_MEMBER_MODAL,
   BANK_ACCOUNT_MODAL,
-  INCOMES_MODAL
+  INCOMES_MODAL,
+  EXPENSES_MODAL,
 } from 'consts/modalTypes';
 
 const Modal = () => {
@@ -48,6 +50,8 @@ const Modal = () => {
       return <BankAccountModal {...modalProps} onClose={onClose} isOpen />;
     case INCOMES_MODAL:
       return <IncomesModal {...modalProps} onClose={onClose} isOpen />;
+    case EXPENSES_MODAL:
+      return <ExpensesModal {...modalProps} onClose={onClose} isOpen />;
     default: {
       throw new Error('Modal type is not specified!');
     }

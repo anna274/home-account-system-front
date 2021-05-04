@@ -5,3 +5,4 @@ export * from './categories';
 export * from './accountMembers';
 export * from './bankAccounts';
 export * from './incomes';
+export * from './expenses';
