@@ -34,14 +34,14 @@ export default (state = initialState, action) => {
     case accountMembersTypes.EDIT_ACCOUNT_MEMBER_SUCCESS:
       return {
         ...state,
-        data: state.data.map(category => category.id !== action.payload.id ? category : action.payload),
+        data: state.data.map(accountMember => accountMember.id !== action.payload.id ? accountMember : action.payload),
         actionRunning: false,
         error: null,
       };
     case accountMembersTypes.DELETE_ACCOUNT_MEMBER_SUCCESS:
       return {
         ...state,
-        data: state.data.filter(category => category.id !== action.payload),
+        data: state.data.filter(accountMember => accountMember.id !== action.payload),
         actionRunning: false,
         error: null,
       };

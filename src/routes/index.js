@@ -10,7 +10,8 @@ import {
   AccountsPage,
   CategoriesPage,
   SettingsPage,
-  AccountMembersPage
+  AccountMembersPage,
+  BankAccountsPage,
 } from 'containers';
 
 function Routes() {
@@ -24,6 +25,7 @@ function Routes() {
         <PrivateRoute path={PATHS.categories} exact component={CategoriesPage} />
         <PrivateRoute path={PATHS.settings} exact component={SettingsPage} />
         <PrivateRoute path={PATHS.members} exact component={AccountMembersPage} />
+        <PrivateRoute path={PATHS.bankAccounts} exact component={BankAccountsPage} />
       </Switch>
     </Router>
   );

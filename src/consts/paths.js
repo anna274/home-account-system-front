@@ -5,7 +5,8 @@ const PATHS = {
   accounts: '/accounts',
   categories: '/categories',
   settings: '/settings',
-  members: '/members'
+  members: '/members',
+  bankAccounts: '/bank-accounts',
 };
 
 export default PATHS;
