@@ -28,6 +28,7 @@ const createIncome = (formData) => {
         type: incomesTypes.CREATE_INCOME_REQUEST,
       });
       const income = await createIncomeInfo(formData);
+      console.log(income)
       dispatch({
         type: incomesTypes.CREATE_INCOME_SUCCESS,
         payload: income.data,

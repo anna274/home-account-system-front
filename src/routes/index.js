@@ -12,6 +12,7 @@ import {
   SettingsPage,
   AccountMembersPage,
   BankAccountsPage,
+  IncomesPage,
 } from 'containers';
 
 function Routes() {
@@ -26,6 +27,7 @@ function Routes() {
         <PrivateRoute path={PATHS.settings} exact component={SettingsPage} />
         <PrivateRoute path={PATHS.members} exact component={AccountMembersPage} />
         <PrivateRoute path={PATHS.bankAccounts} exact component={BankAccountsPage} />
+        <PrivateRoute path={PATHS.incomes} exact component={IncomesPage} />
       </Switch>
     </Router>
   );

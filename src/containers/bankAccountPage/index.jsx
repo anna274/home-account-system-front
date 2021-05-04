@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteAccountMember, getAccountMembers, getBankAccounts, showModal } from 'redux/actions';
+import { deleteBankAccount, getAccountMembers, getBankAccounts, showModal } from 'redux/actions';
 import Button from '@material-ui/core/Button';
 import Table from 'components/table';
 import customHistory from 'customHistory';
@@ -17,7 +17,7 @@ const columns = [
 ];
 
 const BankAccountsPage = () => {
-  const { data: bankAccounts, loading } = useSelector(state => state.bankAccounts);
+  const { data: bankAccounts } = useSelector(state => state.bankAccounts);
   const { id: accountId } = useSelector(state => state.user.data)
   const { data: accountMembers } = useSelector(state => state.accountMembers)
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const BankAccountsPage = () => {
   const deleteHandler = (bankAccountId) => {
     dispatch(showModal({
       modalType: CONFIRMATION_MODAL,
-      onConfirm: () => dispatch(deleteAccountMember(bankAccountId)),
+      onConfirm: () => dispatch(deleteBankAccount(bankAccountId)),
       text: 'Вы уверенны, что хотите удалить счёт? После удаления будет удалена информация о доходах и расходах, привязанных к счёту',
       confirmText: 'Да, удалить счёт'
     }))

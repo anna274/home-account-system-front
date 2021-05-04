@@ -7,7 +7,16 @@ import CategoryModal from './categoryModal';
 import LoginSettingModal from './loginSettingModal';
 import AccountMembersModal from './accountMembersModal';
 import BankAccountModal from './bankAccountModal';
-import { ACCOUNT_MODAL, CONFIRMATION_MODAL, CATEGORY_MODAL, LOGIN_SETTINGS_MODAL, ACCOUNT_MEMBER_MODAL, BANK_ACCOUNT_MODAL } from 'consts/modalTypes';
+import IncomesModal from './incomesModal';
+import {
+  ACCOUNT_MODAL,
+  CONFIRMATION_MODAL,
+  CATEGORY_MODAL,
+  LOGIN_SETTINGS_MODAL,
+  ACCOUNT_MEMBER_MODAL,
+  BANK_ACCOUNT_MODAL,
+  INCOMES_MODAL
+} from 'consts/modalTypes';
 
 const Modal = () => {
   const { modalType, modalProps } = useSelector((state) => state.modal);
@@ -37,6 +46,8 @@ const Modal = () => {
       return <AccountMembersModal {...modalProps} onClose={onClose} isOpen />;
     case BANK_ACCOUNT_MODAL:
       return <BankAccountModal {...modalProps} onClose={onClose} isOpen />;
+    case INCOMES_MODAL:
+      return <IncomesModal {...modalProps} onClose={onClose} isOpen />;
     default: {
       throw new Error('Modal type is not specified!');
     }

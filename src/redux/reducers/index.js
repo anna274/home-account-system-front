@@ -5,6 +5,7 @@ import { default as modalReducer } from './modal'
 import { default as categoriesReducer } from './categories'
 import { default as accountMembersReducer } from './accountMembers'
 import { default as bankAccountReducer } from './bankAccounts'
+import { default as incomesReducer } from './incomes'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   categories: categoriesReducer,
   accountMembers: accountMembersReducer,
-  bankAccounts: bankAccountReducer
+  bankAccounts: bankAccountReducer,
+  incomes: incomesReducer,
 });
 
 export default rootReducer;

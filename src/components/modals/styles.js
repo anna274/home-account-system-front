@@ -23,7 +23,14 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     marginTop: '1.5rem'
   },
+  inputsContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  withMarginButton: {
+    marginBottom: 15,
+  },
   select: {
-    minWidth: 120,
+    minWidth: '100%',
   }
 }));
