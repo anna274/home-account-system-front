@@ -91,4 +91,10 @@ const deleteIncome = (incomeId) => {
   };
 }
 
-export { getIncomes, createIncome, editIncome, deleteIncome };
+const clearIncomes = () => {
+  return {
+    type: incomesTypes.CLEAR_INCOMES,
+  }
+}
+
+export { getIncomes, createIncome, editIncome, deleteIncome, clearIncomes };

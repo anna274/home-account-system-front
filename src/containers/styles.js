@@ -28,5 +28,14 @@ export default makeStyles((theme) => ({
     },
     transition: 0.3,
     color: 'white'
-  }
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  buttonsContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '1.5rem'
+  },
 }));

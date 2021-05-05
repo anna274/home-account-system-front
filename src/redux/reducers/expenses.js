@@ -49,6 +49,8 @@ export default (state = initialState, action) => {
     case expensesTypes.EDIT_EXPENSE_FAILURE:
     case expensesTypes.DELETE_EXPENSE_FAILURE:
       return { ...state, error: action.payload, actionRunning: false };
+    case expensesTypes.CLEAR_EXPENSES:
+      return { ...state, data: [] };
     default:
       return state;
   }

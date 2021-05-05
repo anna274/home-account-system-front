@@ -15,6 +15,7 @@ const columns = [
     minWidth: 170,
     format: value => value.name
   },
+  { id: 'balance', label: 'Баланс', minWidth: 150 },
 ];
 
 const BankAccountsPage = () => {

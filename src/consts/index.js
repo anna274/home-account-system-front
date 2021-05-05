@@ -3,3 +3,4 @@ export { default as PATHS } from './paths';
 export * from './modalTypes';
 export * from './accountRoles';
 export * from './categoriesTypes';
+export * from './columns';

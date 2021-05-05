@@ -4,35 +4,8 @@ import { deleteIncome, getIncomes, getCategories, getBankAccounts, showModal } f
 import Button from '@material-ui/core/Button';
 import Table from 'components/table';
 import customHistory from 'customHistory';
-import { INCOMES_MODAL, CONFIRMATION_MODAL, INCOME_CATEGORY } from 'consts';
-import { formatDateString } from 'helpers';
+import { INCOMES_MODAL, CONFIRMATION_MODAL, INCOME_CATEGORY, incomeExpenseColumns } from 'consts';
 import useStyles from '../styles';
-
-const columns = [
-  {
-    id: 'category',
-    label: 'Категория',
-    minWidth: 170,
-    format: value => value.name
-  },
-  {
-    id: 'bankAccount',
-    label: 'Счёт',
-    minWidth: 170,
-    format: value => value.name
-  },
-  {
-    id: 'sum',
-    label: 'Сумма (руб)',
-    minWidth: 170,
-  },
-  {
-    id: 'date',
-    label: 'Дата',
-    minWidth: 170,
-    format: value => formatDateString(value)
-  },
-];
 
 const IncomesPage = () => {
   const { data: incomes } = useSelector(state => state.incomes);
@@ -79,7 +52,7 @@ const IncomesPage = () => {
 
   return (
     <div className={classes.page}>
-      <Table columns={columns} rows={incomes} deleteHandler={deleteHandler} editHandler={editHandler}/>
+      <Table columns={incomeExpenseColumns} rows={incomes} deleteHandler={deleteHandler} editHandler={editHandler}/>
       <Button
         variant="contained"
         color="primary"

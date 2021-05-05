@@ -1,5 +1,5 @@
 import { getExpensesInfo, createExpenseInfo, editExpenseInfo, deleteExpenseInfo } from 'services'
-import { expensesTypes, modalTypes } from 'redux/types'
+import { expensesTypes, incomesTypes, modalTypes } from 'redux/types';
 
 const getExpenses = (accountId) => {
   return async (dispatch) => {
@@ -91,4 +91,10 @@ const deleteExpense = (expenseId) => {
   };
 }
 
-export { getExpenses, createExpense, editExpense, deleteExpense };
+const clearExpenses = () => {
+  return {
+    type: expensesTypes.CLEAR_EXPENSES,
+  }
+}
+
+export { getExpenses, createExpense, editExpense, deleteExpense, clearExpenses };

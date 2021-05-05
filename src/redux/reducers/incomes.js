@@ -1,4 +1,4 @@
-import { incomesTypes } from 'redux/types';
+import { expensesTypes, incomesTypes } from 'redux/types';
 
 const initialState = {
   data: [],
@@ -49,6 +49,8 @@ export default (state = initialState, action) => {
     case incomesTypes.EDIT_INCOME_FAILURE:
     case incomesTypes.DELETE_INCOME_FAILURE:
       return { ...state, error: action.payload, actionRunning: false };
+    case incomesTypes.CLEAR_INCOMES:
+      return { ...state, data: [] };
     default:
       return state;
   }

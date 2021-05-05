@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: classesFromProp = {} }) => {
+const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: classesFromProp = {}, withActions= true }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const classes = useStyles();
@@ -46,7 +46,7 @@ const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: class
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {
+              { withActions &&
                 <TableCell
                   key="actions"
                   style={{ width: 100 }}
@@ -69,7 +69,7 @@ const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: class
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {
+                  {withActions &&
                     <TableCell key="actions">
                       <IconButton component="span" onClick={() => editHandler(row)} color="primary">
                         <EditIcon/>

@@ -9,6 +9,7 @@ const PATHS = {
   bankAccounts: '/bank-accounts',
   incomes: '/incomes',
   expenses: '/expenses',
+  statistics: '/statistics',
 };
 
 export default PATHS;
