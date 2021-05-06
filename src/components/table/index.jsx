@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: classesFromProp = {}, withActions= true }) => {
+const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: classesFromProp = {}, withActions= true, withPagination = true }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const classes = useStyles();
@@ -93,15 +93,15 @@ const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: class
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
+      {withPagination && <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
-        component="div"
+        component='div'
         count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+      />}
     </Paper>
   );
 }

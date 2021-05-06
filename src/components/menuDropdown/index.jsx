@@ -34,7 +34,7 @@ const MenuDropdown = ({ links, Label }) => {
         onClose={handleMenuClose}
       >
         {
-          links.map(({ id, text, to }) => {
+          links.map(({ id, text, to, onClick }) => {
             return (
               <Link
                 {...{
@@ -43,6 +43,7 @@ const MenuDropdown = ({ links, Label }) => {
                   color: "inherit",
                   style: { textDecoration: "none" },
                   key: id,
+                  onClick
                 }}
               >
                 <MenuItem onClick={handleMenuClose}>{text}</MenuItem>

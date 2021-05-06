@@ -14,6 +14,14 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2, 4, 3),
   },
+  largePaper: {
+    width: 600,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(2, 4, 3),
+  },
   form: {
     width: '100%',
     marginTop: theme.spacing(1),

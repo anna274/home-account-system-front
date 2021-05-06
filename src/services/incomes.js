@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const getIncomesInfo = (accountId) => {
-  return axios.get(`/incomes/${accountId}`);
+const getIncomesInfo = (accountId, queryString) => {
+  console.log(`/incomes/${accountId}${queryString}`);
+  return axios.get(`/incomes/${accountId}${queryString}`);
 }
 
 const createIncomeInfo = (formData) => {

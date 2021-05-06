@@ -1,0 +1,1 @@
+export const calculateResultSum = (rows) => rows.reduce((res, { sum }) => res + sum, 0)

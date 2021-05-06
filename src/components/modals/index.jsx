@@ -9,6 +9,7 @@ import AccountMembersModal from './accountMembersModal';
 import BankAccountModal from './bankAccountModal';
 import IncomesModal from './incomesModal';
 import ExpensesModal from './expensesModal';
+import ChartModal from './chartModal';
 import {
   ACCOUNT_MODAL,
   CONFIRMATION_MODAL,
@@ -18,6 +19,7 @@ import {
   BANK_ACCOUNT_MODAL,
   INCOMES_MODAL,
   EXPENSES_MODAL,
+  CHART_MODAL,
 } from 'consts/modalTypes';
 
 const Modal = () => {
@@ -52,6 +54,8 @@ const Modal = () => {
       return <IncomesModal {...modalProps} onClose={onClose} isOpen />;
     case EXPENSES_MODAL:
       return <ExpensesModal {...modalProps} onClose={onClose} isOpen />;
+    case CHART_MODAL:
+      return <ChartModal {...modalProps} onClose={onClose} isOpen />;
     default: {
       throw new Error('Modal type is not specified!');
     }

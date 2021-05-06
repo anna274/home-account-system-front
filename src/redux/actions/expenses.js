@@ -1,13 +1,14 @@
 import { getExpensesInfo, createExpenseInfo, editExpenseInfo, deleteExpenseInfo } from 'services'
-import { expensesTypes, incomesTypes, modalTypes } from 'redux/types';
+import { expensesTypes, modalTypes } from 'redux/types';
+import { getQueryString } from 'helpers'
 
-const getExpenses = (accountId) => {
+const getExpenses = (accountId, query) => {
   return async (dispatch) => {
     try{
       dispatch({
         type: expensesTypes.GET_EXPENSES_REQUEST,
       });
-      const expenses = await getExpensesInfo(accountId);
+      const expenses = await getExpensesInfo(accountId, getQueryString(query));
       dispatch({
         type: expensesTypes.GET_EXPENSES_SUCCESS,
         payload: expenses.data,

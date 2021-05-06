@@ -1,53 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import { clearIncomes, clearExpenses } from 'redux/actions'
+import { clearIncomes, clearExpenses, getIncomes, getExpenses, showModal } from 'redux/actions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Table from 'components/table';
 import MenuDropdown from 'components/menuDropdown';
 import FormDatePicker from 'components/form/FormDatePicker';
 import ResultTable from './ResultTable';
-import { incomeExpenseColumns } from 'consts';
+import { CHART_MODAL, incomeExpenseColumns } from 'consts';
+import { groupByCategory, groupByBankAccount, downloadTxtFile, generateReport, calculateResultSum } from 'helpers';
 import useStyles from '../styles';
 import usePageStyles from './styles';
 import validationSchema from './schema';
-
-const statisticsLinks = [
-  {
-    id: 0,
-    text: 'Стастистика доходов по счетам',
-    to: '#',
-  },
-  {
-    id: 1,
-    text: 'Стастистика доходов по категориям',
-    to: '#',
-  },
-  {
-    id: 2,
-    text: 'Стастистика расходов по счетам',
-    to: '#',
-  },
-  {
-    id: 3,
-    text: 'Стастистика расходов по категориям',
-    to: '#',
-  },
-];
-
-const exportLinks = [
-  {
-    id: 0,
-    text: 'Экспортировать в PDF',
-    to: '#',
-  },
-  {
-    id: 1,
-    text: 'Экспортировать в TXT',
-    to: '#',
-  },
-];
 
 const StatisticsLabel =
   (<Button component={ Button } color="primary">
@@ -62,14 +27,72 @@ const ExportLabel =
 const StatisticsPage = () => {
   const { data: expenses } = useSelector(state => state.expenses);
   const { data: incomes } = useSelector(state => state.incomes);
+  const { id: accountId } = useSelector(state => state.user.data);
+  const [dates, setDates] = useState({ startDate: '', endDate: ''});
   const dispatch = useDispatch();
   const classes = useStyles();
   const pageStyles = usePageStyles();
-
+  const statisticsLinks = useMemo(() => {
+    return [
+      {
+        id: 0,
+        text: 'Стастистика доходов по счетам',
+        to: '#',
+        onClick: () => dispatch(showModal({
+          modalType: CHART_MODAL,
+          title: 'Стастистика доходов по счетам',
+          dataset: groupByBankAccount(incomes)
+        }))
+      },
+      {
+        id: 1,
+        text: 'Стастистика доходов по категориям',
+        to: '#',
+        onClick: () => dispatch(showModal({
+          modalType: CHART_MODAL,
+          title: 'Стастистика доходов по категориям',
+          dataset: groupByCategory(incomes)
+        }))
+      },
+      {
+        id: 2,
+        text: 'Стастистика расходов по счетам',
+        to: '#',
+        onClick: () => dispatch(showModal({
+          modalType: CHART_MODAL,
+          title: 'Стастистика расходов по счетам',
+          dataset: groupByBankAccount(expenses)
+        }))
+      },
+      {
+        id: 3,
+        text: 'Стастистика расходов по категориям',
+        to: '#',
+        onClick: () => dispatch(showModal({
+          modalType: CHART_MODAL,
+          title: 'Стастистика расходов по категориям',
+          dataset: groupByCategory(expenses)
+        }))
+      },
+    ]
+  }, [dispatch, incomes, expenses])
+  const exportLinks = useMemo(() => [
+    {
+      id: 0,
+      text: 'Экспортировать в PDF',
+      to: '#',
+    },
+    {
+      id: 1,
+      text: 'Экспортировать в TXT',
+      to: '#',
+      onClick: () => downloadTxtFile(generateReport(incomes, expenses, dates.startDate, dates.endDate))
+    },
+  ], [dates, incomes, expenses]);
   useEffect(() => {
     dispatch(clearIncomes());
     dispatch(clearExpenses());
-  }, [])
+  }, [dispatch])
 
   const initialValues = {
     startDate: new Date(),
@@ -79,8 +102,14 @@ const StatisticsPage = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values) => {
-      console.log(values)
+    onSubmit: async ({startDate, endDate}) => {
+      const toSend = {
+        startDate: startDate.toISOString().split("T")[0],
+        endDate: endDate.toISOString().split("T")[0],
+      }
+      dispatch(getIncomes(accountId, toSend))
+      dispatch(getExpenses(accountId, toSend))
+      setDates({startDate, endDate})
     },
   });
 
@@ -119,7 +148,7 @@ const StatisticsPage = () => {
           <Typography component="p" variant="h5" style={{textAlign: 'center', fontSize: 18,}}>
             Итоговая таблица
           </Typography>
-          <ResultTable/>
+          <ResultTable expensesSum={calculateResultSum(expenses)} incomesSum={calculateResultSum(incomes)}/>
         </div>
         <div className={pageStyles.tablesContainer}>
           <Typography component="h4" variant="h5" style={{fontSize: 20, textAlign: 'center'}}>

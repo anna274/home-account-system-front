@@ -1,13 +1,14 @@
 import { getIncomesInfo, createIncomeInfo, editIncomeInfo, deleteIncomeInfo } from 'services'
 import { incomesTypes, modalTypes } from 'redux/types'
+import { getQueryString } from 'helpers'
 
-const getIncomes = (accountId) => {
+const getIncomes = (accountId, query = {}) => {
   return async (dispatch) => {
     try{
       dispatch({
         type: incomesTypes.GET_INCOMES_REQUEST,
       });
-      const incomes = await getIncomesInfo(accountId);
+      const incomes = await getIncomesInfo(accountId, getQueryString(query));
       dispatch({
         type: incomesTypes.GET_INCOMES_SUCCESS,
         payload: incomes.data,
@@ -22,6 +23,7 @@ const getIncomes = (accountId) => {
 }
 
 const createIncome = (formData) => {
+  console.log(formData)
   return async (dispatch) => {
     try{
       dispatch({

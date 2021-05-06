@@ -37,7 +37,7 @@ export default function BankAccountModal({ isOpen, onClose, isEdit, expense }) {
       if(isEdit) {
         dispatch(editExpense(values));
       } else {
-        dispatch(createExpense(values));
+        dispatch(createExpense({ ...values, date: values.date.toISOString().split("T")[0] }));
       }
     },
   });
