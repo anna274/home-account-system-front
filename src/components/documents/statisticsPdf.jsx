@@ -7,26 +7,27 @@ import {
   View
 } from "@react-pdf/renderer";
 import * as React from "react";
+import { generateReport } from 'helpers'
 
 export const styles = StyleSheet.create({
-  font: { fontFamily: "Oswald" }
+  font: { fontFamily: "Roboto" }
 });
 
-const fontSrc =
-  "https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf";
-Font.register({ family: "Oswald", src: fontSrc });
+Font.register({
+  family: "Roboto",
+  src:
+    "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf"
+});
 
-const StatisticsPdf = ({ data }) => {
-  const member = data[0];
-  if (member) {
+const StatisticsPdf = ({ report }) => {
+  if (report) {
     return (
       <Document>
         <Page size="A4" style={styles.font}>
           <View>
             <Text>
-              Name: {member.name.first} {member.name.last}
+              {report}
             </Text>
-            <Text>Email: {member.email}</Text>
           </View>
         </Page>
       </Document>

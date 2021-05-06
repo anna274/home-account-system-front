@@ -34,7 +34,10 @@ const MenuDropdown = ({ links, Label }) => {
         onClose={handleMenuClose}
       >
         {
-          links.map(({ id, text, to, onClick }) => {
+          links.map(({ id, text, to, onClick, Element }) => {
+            if(Element){
+              return <Element key={id}/>;
+            }
             return (
               <Link
                 {...{

@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Table from 'components/table';
 import MenuDropdown from 'components/menuDropdown';
+import PdfExportLink from 'components/pdfExportLink';
+import StatisticsPdf from 'components/documents/statisticsPdf';
 import FormDatePicker from 'components/form/FormDatePicker';
 import ResultTable from './ResultTable';
 import { CHART_MODAL, incomeExpenseColumns } from 'consts';
@@ -32,6 +34,9 @@ const StatisticsPage = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const pageStyles = usePageStyles();
+  const report = useMemo(() => {
+    return generateReport(incomes, expenses, dates.startDate, dates.endDate);
+  }, [dates, incomes, expenses])
   const statisticsLinks = useMemo(() => {
     return [
       {
@@ -79,16 +84,15 @@ const StatisticsPage = () => {
   const exportLinks = useMemo(() => [
     {
       id: 0,
-      text: 'Экспортировать в PDF',
-      to: '#',
+      Element: () => <PdfExportLink document={<StatisticsPdf report={report}/>}/>
     },
     {
       id: 1,
       text: 'Экспортировать в TXT',
       to: '#',
-      onClick: () => downloadTxtFile(generateReport(incomes, expenses, dates.startDate, dates.endDate))
+      onClick: () => downloadTxtFile(report)
     },
-  ], [dates, incomes, expenses]);
+  ], [report]);
   useEffect(() => {
     dispatch(clearIncomes());
     dispatch(clearExpenses());
