@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteExpense, getExpenses, getCategories, getBankAccounts, showModal } from 'redux/actions';
+import { deleteExpense, getExpenses, getCategories, getBankAccounts, showModal, getIncomes } from 'redux/actions';
 import Button from '@material-ui/core/Button';
 import Table from 'components/table';
 import customHistory from 'customHistory';
 import { EXPENSES_MODAL, CONFIRMATION_MODAL, EXPENSE_CATEGORY, incomeExpenseColumns } from 'consts';
 import useStyles from '../styles';
+import usePageStyles from './styles';
+import IncomeExpenseFilter from '../../components/filters/IncomeExpenseFilter';
 
 const ExpensesPage = () => {
   const { data: expenses } = useSelector(state => state.expenses);
@@ -13,6 +15,7 @@ const ExpensesPage = () => {
   const { id: accountId } = useSelector(state => state.user.data)
   const dispatch = useDispatch();
   const classes = useStyles();
+  const pageClasses = usePageStyles();
 
   useEffect(() => {
     dispatch(getBankAccounts(accountId))
@@ -50,9 +53,18 @@ const ExpensesPage = () => {
     }))
   }
 
+  const handleFilterSubmit = (values) => {
+    const startDate = values?.startDate?.toISOString().split("T")[0];
+    const endDate = values?.endDate?.toISOString().split("T")[0];
+    const categoryId = values?.category?.id;
+    const bankAccountId = values?.bankAccount?.id;
+    dispatch(getExpenses(accountId, {startDate, endDate, categoryId, bankAccountId}))
+  }
+
   return (
     <div className={classes.page}>
-      <Table columns={incomeExpenseColumns} rows={expenses} deleteHandler={deleteHandler} editHandler={editHandler}/>
+      <IncomeExpenseFilter onSubmit={handleFilterSubmit}/>
+      <Table columns={incomeExpenseColumns} rows={expenses} deleteHandler={deleteHandler} editHandler={editHandler} classes={pageClasses}/>
       <Button
         variant="contained"
         color="primary"

@@ -2,7 +2,6 @@ import { formatDateString } from './date-helpers';
 import { calculateResultSum, entityToString } from './entity-helpers';
 
 export const generateReport = (incomes, expenses, startDate, endDate) => {
-  console.log(startDate)
   const incomeSum = calculateResultSum(incomes);
   const expensesSum = calculateResultSum(expenses);
   let report = `Отчёт о семейном бюджете с ${formatDateString(startDate)} по ${formatDateString(endDate)}\n\n`;
