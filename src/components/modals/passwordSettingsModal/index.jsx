@@ -14,7 +14,6 @@ import validationSchema from './schema';
 export default function PasswordSettingModal({ isOpen, onClose }) {
   const classes = useStyles();
   const { actionRunning, data } = useSelector(state => state.user)
-  const dispatch = useDispatch()
 
   const initialValues = {
     oldPassword: '',
@@ -25,8 +24,6 @@ export default function PasswordSettingModal({ isOpen, onClose }) {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      // const { confirmedPassword, ...dataToSend } = values;
-      // dispatch(editUser({...data, ...dataToSend}))
     },
   });
 
@@ -58,7 +55,7 @@ export default function PasswordSettingModal({ isOpen, onClose }) {
                   color="primary"
                   style={{ marginRight: '1rem' }}
                   disabled={actionRunning}
-                >Изменить логин</Button>
+                >Изменить пароль</Button>
                 <Button
                   variant="contained"
                   color="secondary"

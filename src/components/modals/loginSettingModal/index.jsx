@@ -13,17 +13,17 @@ import { validationSchema } from './schema';
 
 export default function LoginSettingModal({ isOpen, onClose }) {
   const classes = useStyles();
-  const { actionRunning, data } = useSelector(state => state.user)
+  const { actionRunning, data} = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   const initialValues = {
-    login: data.login,
+    login: data.username,
   }
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      dispatch(editUser({...data, username: values.login}))
+      dispatch(editUser({...data, login: values.login}))
     },
   });
 

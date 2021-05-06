@@ -10,6 +10,7 @@ import BankAccountModal from './bankAccountModal';
 import IncomesModal from './incomesModal';
 import ExpensesModal from './expensesModal';
 import ChartModal from './chartModal';
+import PasswordSettingsModal from './passwordSettingsModal';
 import {
   ACCOUNT_MODAL,
   CONFIRMATION_MODAL,
@@ -20,6 +21,7 @@ import {
   INCOMES_MODAL,
   EXPENSES_MODAL,
   CHART_MODAL,
+  PASSWORD_SETTINGS_MODAL,
 } from 'consts/modalTypes';
 
 const Modal = () => {
@@ -56,6 +58,8 @@ const Modal = () => {
       return <ExpensesModal {...modalProps} onClose={onClose} isOpen />;
     case CHART_MODAL:
       return <ChartModal {...modalProps} onClose={onClose} isOpen />;
+    case PASSWORD_SETTINGS_MODAL:
+      return <PasswordSettingsModal {...modalProps} onClose={onClose} isOpen />;
     default: {
       throw new Error('Modal type is not specified!');
     }
