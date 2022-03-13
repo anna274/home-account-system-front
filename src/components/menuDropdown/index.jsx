@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IconButton, Link, Menu } from '@material-ui/core';
 import { NavLink as RouterLink } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -33,31 +33,28 @@ const MenuDropdown = ({ links, Label }) => {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        {
-          links.map(({ id, text, to, onClick, Element }) => {
-            if(Element){
-              return <Element key={id}/>;
-            }
-            return (
-              <Link
-                {...{
-                  component: RouterLink,
-                  to,
-                  color: "inherit",
-                  style: { textDecoration: "none" },
-                  key: id,
-                  onClick
-                }}
-              >
-                <MenuItem onClick={handleMenuClose}>{text}</MenuItem>
-              </Link>
-            );
-          })
-        }
+        {links.map(({ id, text, to, onClick, Element }) => {
+          if (Element) {
+            return <Element key={id} />;
+          }
+          return (
+            <Link
+              {...{
+                component: RouterLink,
+                to,
+                color: 'inherit',
+                style: { textDecoration: 'none' },
+                key: id,
+                onClick,
+              }}
+            >
+              <MenuItem onClick={handleMenuClose}>{text}</MenuItem>
+            </Link>
+          );
+        })}
       </Menu>
     </>
-
-    )
-}
+  );
+};
 
 export default MenuDropdown;

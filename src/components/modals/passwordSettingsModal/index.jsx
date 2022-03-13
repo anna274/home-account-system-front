@@ -1,7 +1,7 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import { editUser } from 'redux/actions';
+import { editAccountPassword } from 'redux/actions';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -12,18 +12,25 @@ import useStyles from '../styles';
 import validationSchema from './schema';
 
 export default function PasswordSettingModal({ isOpen, onClose }) {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const { actionRunning, data } = useSelector(state => state.user)
+  const {
+    actionRunning,
+    data: { id },
+  } = useSelector((state) => state.user);
 
   const initialValues = {
     oldPassword: '',
     password: '',
     confirmedPassword: '',
-  }
+  };
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
+      dispatch(
+        editAccountPassword({ oldPassword: values.oldPassword, newPassword: values.password, id }),
+      );
     },
   });
 
@@ -45,9 +52,14 @@ export default function PasswordSettingModal({ isOpen, onClose }) {
               Изменение логина
             </Typography>
             <form className={classes.form} onSubmit={formik.handleSubmit}>
-              <FormInput name="oldPassword" formik={formik} label="Текущий пароль"/>
-              <FormInput name="password" formik={formik} label="Новый пароль" type="password"/>
-              <FormInput name="confirmedPassword" formik={formik} label="Повторите новый пароль" type="password"/>
+              <FormInput name="oldPassword" formik={formik} label="Текущий пароль" />
+              <FormInput name="password" formik={formik} label="Новый пароль" type="password" />
+              <FormInput
+                name="confirmedPassword"
+                formik={formik}
+                label="Повторите новый пароль"
+                type="password"
+              />
               <div className={classes.buttonsContainer}>
                 <Button
                   type="submit"
@@ -55,13 +67,17 @@ export default function PasswordSettingModal({ isOpen, onClose }) {
                   color="primary"
                   style={{ marginRight: '1rem' }}
                   disabled={actionRunning}
-                >Изменить пароль</Button>
+                >
+                  Изменить пароль
+                </Button>
                 <Button
                   variant="contained"
                   color="secondary"
                   onClick={onClose}
                   disabled={actionRunning}
-                >Отмена</Button>
+                >
+                  Отмена
+                </Button>
               </div>
             </form>
           </div>

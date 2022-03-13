@@ -6,40 +6,47 @@ import Table from 'components/table';
 import { ACCOUNT_MEMBER_MODAL, CONFIRMATION_MODAL } from 'consts';
 import useStyles from '../styles';
 
-const columns = [
-  { id: 'name', label: 'Имя', minWidth: 150 },
-];
+const columns = [{ id: 'name', label: 'Имя', minWidth: 150 }];
 
 const AccountMembersPage = () => {
-  const { data: accountMembers, loading } = useSelector(state => state.accountMembers);
-  const { id: accountId } = useSelector(state => state.user.data)
+  const { data: accountMembers } = useSelector((state) => state.accountMembers);
+  const { id: accountId } = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(getAccountMembers(accountId))
-  }, [dispatch])
+    dispatch(getAccountMembers(accountId));
+  }, [dispatch, accountId]);
 
   const editHandler = (accountMember) => {
-    dispatch(showModal({
-      modalType: ACCOUNT_MEMBER_MODAL,
-      isEdit: true,
-      accountMember,
-    }))
-  }
+    dispatch(
+      showModal({
+        modalType: ACCOUNT_MEMBER_MODAL,
+        isEdit: true,
+        accountMember,
+      }),
+    );
+  };
 
   const deleteHandler = (accountMemberId) => {
-    dispatch(showModal({
-      modalType: CONFIRMATION_MODAL,
-      onConfirm: () => dispatch(deleteAccountMember(accountMemberId)),
-      text: 'Вы уверенны, что хотите удалить участника аккаунта?',
-      confirmText: 'Да, удалить участника'
-    }))
-  }
+    dispatch(
+      showModal({
+        modalType: CONFIRMATION_MODAL,
+        onConfirm: () => dispatch(deleteAccountMember(accountMemberId)),
+        text: 'Вы уверенны, что хотите удалить участника аккаунта?',
+        confirmText: 'Да, удалить участника',
+      }),
+    );
+  };
 
   return (
     <div className={classes.page}>
-      <Table columns={columns} rows={accountMembers} deleteHandler={deleteHandler} editHandler={editHandler}/>
+      <Table
+        columns={columns}
+        rows={accountMembers}
+        deleteHandler={deleteHandler}
+        editHandler={editHandler}
+      />
       <Button
         variant="contained"
         color="primary"
@@ -50,6 +57,6 @@ const AccountMembersPage = () => {
       </Button>
     </div>
   );
-}
+};
 
 export default AccountMembersPage;

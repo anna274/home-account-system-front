@@ -1,6 +1,7 @@
 const PATHS = {
-  logout: '/logout/:userId',
+  // logout: '/logout/:userId',
   login: '/login',
+  logout: '/logout',
   register: '/register',
   accounts: '/accounts',
   categories: '/categories',

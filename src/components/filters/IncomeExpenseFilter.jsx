@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Button from '@material-ui/core/Button';
 import FormSelect from 'components/form/FormSelect';
@@ -7,20 +7,20 @@ import useStyles from './styles';
 import FormDatePicker from '../form/FormDatePicker';
 
 const noneOption = {
-  name: '-'
-}
+  name: '-',
+};
 
 export default function IncomeExpenseFilter({ onSubmit }) {
   const classes = useStyles();
-  const { data: bankAccounts } = useSelector(state => state.bankAccounts);
-  const { data: categories } = useSelector(state => state.categories);
+  const { data: bankAccounts } = useSelector((state) => state.bankAccounts);
+  const { data: categories } = useSelector((state) => state.categories);
 
   const initialValues = {
     bankAccount: noneOption,
     category: noneOption,
     startDate: null,
     endDate: null,
-  }
+  };
 
   const formik = useFormik({
     initialValues,
@@ -36,7 +36,8 @@ export default function IncomeExpenseFilter({ onSubmit }) {
           <FormSelect
             classes={`${classes.select}`}
             name="bankAccount"
-            formik={formik} label="Счёт"
+            formik={formik}
+            label="Счёт"
             values={[noneOption, ...bankAccounts]}
             renderValue={renderValue}
           />
@@ -67,18 +68,12 @@ export default function IncomeExpenseFilter({ onSubmit }) {
             label="Конец дтапозона"
           />
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          type='submit'
-          style={{marginRight: 5}}
-        >Применить</Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          type='submit'
-          onClick={formik.resetForm}
-        >Сбросить</Button>
+        <Button variant="contained" color="primary" type="submit" style={{ marginRight: 5 }}>
+          Применить
+        </Button>
+        <Button variant="contained" color="secondary" type="submit" onClick={formik.resetForm}>
+          Сбросить
+        </Button>
       </form>
     </div>
   );

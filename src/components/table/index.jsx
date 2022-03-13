@@ -24,7 +24,15 @@ const useStyles = makeStyles({
   },
 });
 
-const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: classesFromProp = {}, withActions= true, withPagination = true }) => {
+const CustomTable = ({
+  rows,
+  columns,
+  deleteHandler,
+  editHandler,
+  classes: classesFromProp = {},
+  withActions = true,
+  withPagination = true,
+}) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const classes = useStyles();
@@ -39,21 +47,20 @@ const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: class
   };
 
   return (
-    <Paper className={classNames(classes.root, {
-      [classesFromProp.table]: classesFromProp.table
-    })}>
+    <Paper
+      className={classNames(classes.root, {
+        [classesFromProp.table]: classesFromProp.table,
+      })}
+    >
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              { withActions &&
-                <TableCell
-                  key="actions"
-                  style={{ width: 100 }}
-                >
-                  {"Действия"}
+              {withActions && (
+                <TableCell key="actions" style={{ width: 150 }}>
+                  {'Действия'}
                 </TableCell>
-              }
+              )}
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
@@ -69,16 +76,20 @@ const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: class
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {withActions &&
+                  {withActions && (
                     <TableCell key="actions">
                       <IconButton component="span" onClick={() => editHandler(row)} color="primary">
-                        <EditIcon/>
+                        <EditIcon />
                       </IconButton>
-                      <IconButton component="span" color="secondary" onClick={() => deleteHandler(row.id)}>
-                        <DeleteIcon/>
+                      <IconButton
+                        component="span"
+                        color="secondary"
+                        onClick={() => deleteHandler(row.id, row)}
+                      >
+                        <DeleteIcon />
                       </IconButton>
                     </TableCell>
-                  }
+                  )}
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
@@ -93,17 +104,19 @@ const CustomTable = ({ rows, columns, deleteHandler, editHandler, classes: class
           </TableBody>
         </Table>
       </TableContainer>
-      {withPagination && <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component='div'
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />}
+      {withPagination && (
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      )}
     </Paper>
   );
-}
+};
 
 export default CustomTable;

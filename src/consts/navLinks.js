@@ -24,14 +24,13 @@ const NAV_LINKS = [
     to: '/statistics/',
     text: 'Отчёты',
   },
-
 ];
 
 const PROFILE_NAV_LINKS = [
   {
-  id: 0,
-  to: '/members/',
-  text: 'Участники',
+    id: 0,
+    to: '/members/',
+    text: 'Участники',
   },
   {
     id: 7,
@@ -40,10 +39,10 @@ const PROFILE_NAV_LINKS = [
   },
   {
     id: 8,
-    to: '/logout/',
+    to: '/logout',
     text: 'Выйти',
   },
-]
+];
 
 const NAV_LINKS_ADMIN = [
   {
@@ -55,7 +54,7 @@ const NAV_LINKS_ADMIN = [
     id: 1,
     to: '/categories/',
     text: 'Категории',
-  }
+  },
 ];
 
 const PROFILE_NAV_LINKS_ADMIN = [
@@ -66,9 +65,9 @@ const PROFILE_NAV_LINKS_ADMIN = [
   },
   {
     id: 4,
-    to: '/logout/',
+    to: '/logout',
     text: 'Выйти',
   },
-]
+];
 
 export { NAV_LINKS, NAV_LINKS_ADMIN, PROFILE_NAV_LINKS, PROFILE_NAV_LINKS_ADMIN };

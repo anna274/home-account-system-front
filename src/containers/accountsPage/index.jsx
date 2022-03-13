@@ -17,34 +17,45 @@ const columns = [
 ];
 
 const AccountsPage = () => {
-  const { data: accounts, loading } = useSelector(state => state.accounts);
+  const { data: accounts } = useSelector((state) => state.accounts);
+  const userId = useSelector((state) => state.user.data.id);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const sortedAccounts = accounts.filter((account) => account.id !== userId);
 
   useEffect(() => {
-    dispatch(getAccounts())
-  }, [])
+    dispatch(getAccounts());
+  }, [dispatch]);
 
   const editHandler = (account) => {
-    dispatch(showModal({
-      modalType: ACCOUNT_MODAL,
-      isEdit: true,
-      account,
-    }))
-  }
+    dispatch(
+      showModal({
+        modalType: ACCOUNT_MODAL,
+        isEdit: true,
+        account,
+      }),
+    );
+  };
 
   const deleteHandler = (accountId) => {
-    dispatch(showModal({
-      modalType: CONFIRMATION_MODAL,
-      onConfirm: () => dispatch(deleteAccount(accountId)),
-      text: 'Вы уверенны, что хотите удалить аккаунт?',
-      confirmText: 'Да, удалить аккаунт'
-    }))
-  }
+    dispatch(
+      showModal({
+        modalType: CONFIRMATION_MODAL,
+        onConfirm: () => dispatch(deleteAccount(accountId)),
+        text: 'Вы уверенны, что хотите удалить аккаунт?',
+        confirmText: 'Да, удалить аккаунт',
+      }),
+    );
+  };
 
   return (
     <div className={classes.page}>
-      <Table columns={columns} rows={accounts} deleteHandler={deleteHandler} editHandler={editHandler}/>
+      <Table
+        columns={columns}
+        rows={sortedAccounts}
+        deleteHandler={deleteHandler}
+        editHandler={editHandler}
+      />
       <Button
         variant="contained"
         color="primary"
@@ -55,6 +66,6 @@ const AccountsPage = () => {
       </Button>
     </div>
   );
-}
+};
 
 export default AccountsPage;

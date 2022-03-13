@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { editUser } from 'redux/actions';
 import Modal from '@material-ui/core/Modal';
@@ -13,17 +13,17 @@ import { validationSchema } from './schema';
 
 export default function LoginSettingModal({ isOpen, onClose }) {
   const classes = useStyles();
-  const { actionRunning, data} = useSelector(state => state.user)
-  const dispatch = useDispatch()
+  const { actionRunning, data } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const initialValues = {
-    login: data.username,
-  }
+    login: data.login,
+  };
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      dispatch(editUser({...data, login: values.login}))
+      dispatch(editUser({ ...data, login: values.login }));
     },
   });
 
@@ -45,7 +45,7 @@ export default function LoginSettingModal({ isOpen, onClose }) {
               Изменение логина
             </Typography>
             <form className={classes.form} onSubmit={formik.handleSubmit}>
-              <FormInput name="login" formik={formik} label="Логин"/>
+              <FormInput name="login" formik={formik} label="Логин" />
               <div className={classes.buttonsContainer}>
                 <Button
                   type="submit"
@@ -53,13 +53,17 @@ export default function LoginSettingModal({ isOpen, onClose }) {
                   color="primary"
                   style={{ marginRight: '1rem' }}
                   disabled={actionRunning}
-                >Изменить логин</Button>
+                >
+                  Изменить логин
+                </Button>
                 <Button
                   variant="contained"
                   color="secondary"
                   onClick={onClose}
                   disabled={actionRunning}
-                >Отмена</Button>
+                >
+                  Отмена
+                </Button>
               </div>
             </form>
           </div>

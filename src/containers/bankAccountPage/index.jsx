@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteBankAccount, getAccountMembers, getBankAccounts, showModal } from 'redux/actions';
+import {
+  deleteBankAccount,
+  getAccountMembers,
+  getBankAccounts,
+  showModal,
+  closeModal,
+} from 'redux/actions';
 import Button from '@material-ui/core/Button';
 import Table from 'components/table';
 import customHistory from 'customHistory';
@@ -13,56 +19,72 @@ const columns = [
     id: 'accountMember',
     label: 'Владелец',
     minWidth: 170,
-    format: value => value.name
+    format: (value) => value.name,
   },
   { id: 'balance', label: 'Баланс', minWidth: 150 },
 ];
 
 const BankAccountsPage = () => {
-  const { data: bankAccounts } = useSelector(state => state.bankAccounts);
-  const { id: accountId } = useSelector(state => state.user.data)
-  const { data: accountMembers } = useSelector(state => state.accountMembers)
+  const { data: bankAccounts } = useSelector((state) => state.bankAccounts);
+  const { id: accountId } = useSelector((state) => state.user.data);
+  const { data: accountMembers } = useSelector((state) => state.accountMembers);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(getBankAccounts(accountId))
-    dispatch(getAccountMembers(accountId))
-  }, [dispatch])
+    dispatch(getBankAccounts(accountId));
+    dispatch(getAccountMembers(accountId));
+  }, [dispatch, accountId]);
 
   const addHandler = () => {
-    if(accountMembers.length === 0) {
-      dispatch(showModal({
-        modalType: CONFIRMATION_MODAL,
-        onConfirm: () => customHistory.push('/members'),
-        text: 'Для создания счёта необходимо добавить участников аккаунта. Перейти к добавлению участников?',
-        confirmText: 'Да, перейти'
-      }))
+    if (accountMembers.length === 0) {
+      dispatch(
+        showModal({
+          modalType: CONFIRMATION_MODAL,
+          onConfirm: () => {
+            customHistory.push('/members');
+            dispatch(closeModal());
+          },
+          text:
+            'Для создания счёта необходимо добавить участников аккаунта. Перейти к добавлению участников?',
+          confirmText: 'Да, перейти',
+        }),
+      );
     } else {
-      dispatch(showModal({ modalType: BANK_ACCOUNT_MODAL }))
+      dispatch(showModal({ modalType: BANK_ACCOUNT_MODAL }));
     }
-  }
+  };
 
   const editHandler = (bankAccount) => {
-    dispatch(showModal({
-      modalType: BANK_ACCOUNT_MODAL,
-      isEdit: true,
-      bankAccount,
-    }))
-  }
+    dispatch(
+      showModal({
+        modalType: BANK_ACCOUNT_MODAL,
+        isEdit: true,
+        bankAccount,
+      }),
+    );
+  };
 
   const deleteHandler = (bankAccountId) => {
-    dispatch(showModal({
-      modalType: CONFIRMATION_MODAL,
-      onConfirm: () => dispatch(deleteBankAccount(bankAccountId)),
-      text: 'Вы уверенны, что хотите удалить счёт? После удаления будет удалена информация о доходах и расходах, привязанных к счёту',
-      confirmText: 'Да, удалить счёт'
-    }))
-  }
+    dispatch(
+      showModal({
+        modalType: CONFIRMATION_MODAL,
+        onConfirm: () => dispatch(deleteBankAccount(bankAccountId)),
+        text:
+          'Вы уверенны, что хотите удалить счёт? После удаления будет удалена информация о доходах и расходах, привязанных к счёту',
+        confirmText: 'Да, удалить счёт',
+      }),
+    );
+  };
 
   return (
     <div className={classes.page}>
-      <Table columns={columns} rows={bankAccounts} deleteHandler={deleteHandler} editHandler={editHandler}/>
+      <Table
+        columns={columns}
+        rows={bankAccounts}
+        deleteHandler={deleteHandler}
+        editHandler={editHandler}
+      />
       <Button
         variant="contained"
         color="primary"
@@ -73,6 +95,6 @@ const BankAccountsPage = () => {
       </Button>
     </div>
   );
-}
+};
 
 export default BankAccountsPage;

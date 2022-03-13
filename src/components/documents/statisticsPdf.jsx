@@ -1,22 +1,13 @@
-import {
-  Document,
-  Font,
-  Page,
-  StyleSheet,
-  Text,
-  View
-} from "@react-pdf/renderer";
-import * as React from "react";
-import { generateReport } from 'helpers'
+import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import * as React from 'react';
 
 export const styles = StyleSheet.create({
-  font: { fontFamily: "Roboto" }
+  font: { fontFamily: 'Roboto' },
 });
 
 Font.register({
-  family: "Roboto",
-  src:
-    "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf"
+  family: 'Roboto',
+  src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf',
 });
 
 const StatisticsPdf = ({ report }) => {
@@ -25,9 +16,7 @@ const StatisticsPdf = ({ report }) => {
       <Document>
         <Page size="A4" style={styles.font}>
           <View>
-            <Text>
-              {report}
-            </Text>
+            <Text>{report}</Text>
           </View>
         </Page>
       </Document>

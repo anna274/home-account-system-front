@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { createAccountMember, editAccountMember } from 'redux/actions';
 import Modal from '@material-ui/core/Modal';
@@ -8,28 +8,28 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormInput from 'components/form/FormInput';
-import { isAdmin } from 'helpers'
 import useStyles from '../styles';
 import { validationSchema } from './schema';
 
 export default function AccountMembersModal({ isOpen, onClose, isEdit, accountMember }) {
   const classes = useStyles();
-  const { actionRunning } = useSelector(state => state.accountMembers)
-  const { id: accountId } = useSelector(state => state.user.data)
-  const dispatch = useDispatch()
+  const { actionRunning } = useSelector((state) => state.accountMembers);
+  const { id: accountId } = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
 
-  const initialValues = !isEdit ?
-    {
-      name: '',
-    }: {
-      ...accountMember,
-    };
+  const initialValues = !isEdit
+    ? {
+        name: '',
+      }
+    : {
+        ...accountMember,
+      };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      if(isEdit) {
+      if (isEdit) {
         dispatch(editAccountMember(values));
       } else {
         dispatch(createAccountMember({ ...values, accountId }));
@@ -55,7 +55,7 @@ export default function AccountMembersModal({ isOpen, onClose, isEdit, accountMe
               Данные об участнике аккаунта
             </Typography>
             <form className={classes.form} onSubmit={formik.handleSubmit}>
-              <FormInput name="name" formik={formik} label="Имя участника аккаунта"/>
+              <FormInput name="name" formik={formik} label="Имя участника аккаунта" />
               <div className={classes.buttonsContainer}>
                 <Button
                   type="submit"
@@ -63,13 +63,17 @@ export default function AccountMembersModal({ isOpen, onClose, isEdit, accountMe
                   color="primary"
                   style={{ marginRight: '1rem' }}
                   disabled={actionRunning}
-                >{isEdit ? 'Сохранить изменения' : 'Добавить участника'}</Button>
+                >
+                  {isEdit ? 'Сохранить изменения' : 'Добавить участника'}
+                </Button>
                 <Button
                   variant="contained"
                   color="secondary"
                   onClick={onClose}
                   disabled={actionRunning}
-                >Отмена</Button>
+                >
+                  Отмена
+                </Button>
               </div>
             </form>
           </div>

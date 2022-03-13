@@ -3,9 +3,9 @@ import * as yup from 'yup';
 export default yup.object({
   name: yup
     .string('Название банковского аккаунта')
+    .max(25, 'Максимальная длина 25 символов')
     .required('Введте название банковского аккаунта'),
-    accountMember: yup
+  accountMember: yup
     .object()
-    .test('empty-check','Password must be at least 8 characters', accountMember => Object.keys(accountMember) !== 0),
-
+    .test('empty-check', 'Обязательное поле', (accountMember) => Object.keys(accountMember) !== 0),
 });

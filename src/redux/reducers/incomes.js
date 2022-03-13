@@ -1,4 +1,4 @@
-import { expensesTypes, incomesTypes } from 'redux/types';
+import { incomesTypes } from 'redux/types';
 
 const initialState = {
   data: [],
@@ -34,14 +34,16 @@ export default (state = initialState, action) => {
     case incomesTypes.EDIT_INCOME_SUCCESS:
       return {
         ...state,
-        data: state.data.map(income => income.id !== action.payload.id ? income : action.payload),
+        data: state.data.map((income) =>
+          income.id !== action.payload.id ? income : action.payload,
+        ),
         actionRunning: false,
         error: null,
       };
     case incomesTypes.DELETE_INCOME_SUCCESS:
       return {
         ...state,
-        data: state.data.filter(income => income.id !== action.payload),
+        data: state.data.filter((income) => income.id !== action.payload),
         actionRunning: false,
         error: null,
       };

@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Routes from 'routes';
-import Modal from 'components/modals'
-import { successfulLoginUser } from 'redux/actions'
-import { getCookie } from 'helpers'
+import Modal from 'components/modals';
+import { successfulLoginUser } from 'redux/actions';
+// import { getCookie } from 'helpers'
 
 class App extends React.Component {
   componentDidMount() {
     // if (getCookie('io')) {
     //   this.props.authenticateUser();
     // }
+    this.props.authenticateUser();
   }
 
   render() {
@@ -23,10 +24,12 @@ class App extends React.Component {
     //     <Modal />
     //   </>
     // );
-    return <>
-      <Routes />
-      <Modal />
-    </>
+    return (
+      <>
+        <Routes />
+        <Modal />
+      </>
+    );
   }
 }
 
@@ -36,7 +39,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  successfulLoginUser,
+  authenticateUser: successfulLoginUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

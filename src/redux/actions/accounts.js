@@ -1,9 +1,15 @@
-import { getAccountsInfo, createAccountInfo, editAccountInfo, deleteAccountInfo } from 'services'
-import { accountsTypes, modalTypes } from 'redux/types'
+import {
+  getAccountsInfo,
+  createAccountInfo,
+  editAccountInfo,
+  deleteAccountInfo,
+  editAccountPasswordInfo,
+} from 'services';
+import { accountsTypes, modalTypes } from 'redux/types';
 
 const getAccounts = () => {
   return async (dispatch) => {
-    try{
+    try {
       dispatch({
         type: accountsTypes.GET_ACCOUNTS_REQUEST,
       });
@@ -12,18 +18,18 @@ const getAccounts = () => {
         type: accountsTypes.GET_ACCOUNTS_SUCCESS,
         payload: accounts.data.content,
       });
-    }catch(e) {
+    } catch (e) {
       dispatch({
         type: accountsTypes.GET_ACCOUNTS_FAILURE,
         payload: e,
       });
     }
   };
-}
+};
 
 const createAccount = (formData) => {
   return async (dispatch) => {
-    try{
+    try {
       dispatch({
         type: accountsTypes.CREATE_ACCOUNTS_REQUEST,
       });
@@ -35,18 +41,18 @@ const createAccount = (formData) => {
       dispatch({
         type: modalTypes.CLOSE_MODAL,
       });
-    }catch(e) {
+    } catch (e) {
       dispatch({
         type: accountsTypes.CREATE_ACCOUNTS_FAILURE,
         payload: e,
       });
     }
   };
-}
+};
 
 const editAccount = (formData) => {
   return async (dispatch) => {
-    try{
+    try {
       dispatch({
         type: accountsTypes.EDIT_ACCOUNTS_REQUEST,
       });
@@ -58,18 +64,18 @@ const editAccount = (formData) => {
       dispatch({
         type: modalTypes.CLOSE_MODAL,
       });
-    }catch(e) {
+    } catch (e) {
       dispatch({
         type: accountsTypes.EDIT_ACCOUNTS_FAILURE,
         payload: e,
       });
     }
   };
-}
+};
 
 const deleteAccount = (accountId) => {
   return async (dispatch) => {
-    try{
+    try {
       dispatch({
         type: accountsTypes.DELETE_ACCOUNTS_REQUEST,
       });
@@ -81,13 +87,36 @@ const deleteAccount = (accountId) => {
       dispatch({
         type: modalTypes.CLOSE_MODAL,
       });
-    }catch(e) {
+    } catch (e) {
       dispatch({
         type: accountsTypes.DELETE_ACCOUNTS_FAILURE,
         payload: e,
       });
     }
   };
-}
+};
 
-export { getAccounts, createAccount, editAccount, deleteAccount };
+const editAccountPassword = (formData) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: accountsTypes.EDIT_ACCOUNTS_REQUEST,
+      });
+      const account = await editAccountPasswordInfo(formData);
+      dispatch({
+        type: accountsTypes.EDIT_ACCOUNTS_SUCCESS,
+        payload: account.data,
+      });
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
+      });
+    } catch (e) {
+      dispatch({
+        type: accountsTypes.EDIT_ACCOUNTS_FAILURE,
+        payload: e,
+      });
+    }
+  };
+};
+
+export { getAccounts, createAccount, editAccount, deleteAccount, editAccountPassword };

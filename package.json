@@ -95,6 +95,6 @@
       "^.+\\.jsx?$": "babel-jest"
     }
   },
-  "proxy": "http://localhost:8080/home-account-system",
+  "proxy": "http://192.168.47.107:8080/home-account-system",
   "type": "module"
 }

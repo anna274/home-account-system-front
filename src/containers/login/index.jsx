@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux'
-import { loginUser } from 'redux/actions'
+import { useDispatch } from 'react-redux';
+import { loginUser } from 'redux/actions';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,10 +11,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import useStyles from './styles';
-import FormInput from 'components/form/FormInput'
+import FormInput from 'components/form/FormInput';
 import validationSchema from './shema';
 
-const Login =() => {
+const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -22,15 +22,14 @@ const Login =() => {
     initialValues: {
       login: '',
       password: '',
-      confirmedPassword: ''
+      confirmedPassword: '',
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const bodyFormData = new FormData();
-      console.log(values)
       bodyFormData.append('username', values.login);
       bodyFormData.append('password', values.password);
-      dispatch(loginUser(bodyFormData))
+      dispatch(loginUser(bodyFormData));
     },
   });
 
@@ -45,8 +44,8 @@ const Login =() => {
           Вход в аккаунт
         </Typography>
         <form className={classes.form} onSubmit={formik.handleSubmit}>
-          <FormInput name="login" formik={formik} label="Логин"/>
-          <FormInput name="password" formik={formik} label="Пароль" type="password"/>
+          <FormInput name="login" formik={formik} label="Логин" />
+          <FormInput name="password" formik={formik} label="Пароль" type="password" />
           <Button
             type="submit"
             fullWidth
@@ -64,7 +63,7 @@ const Login =() => {
             </Grid>
             <Grid item>
               <Link href="/register" variant="body2">
-                {"Нет аккаунта? Создать аккаунт"}
+                {'Нет аккаунта? Создать аккаунт'}
               </Link>
             </Grid>
           </Grid>
@@ -72,6 +71,6 @@ const Login =() => {
       </div>
     </Container>
   );
-}
+};
 
 export default Login;

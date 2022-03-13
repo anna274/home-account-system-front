@@ -6,6 +6,7 @@ import { PATHS } from 'consts';
 import {
   Login,
   Register,
+  Logout,
   Navigation,
   AccountsPage,
   CategoriesPage,
@@ -32,6 +33,7 @@ function Routes() {
         <PrivateRoute path={PATHS.incomes} exact component={IncomesPage} />
         <PrivateRoute path={PATHS.expenses} exact component={ExpensesPage} />
         <PrivateRoute path={PATHS.statistics} exact component={StatisticsPage} />
+        <PrivateRoute path={PATHS.logout} exact component={Logout} />
       </Switch>
     </Router>
   );
